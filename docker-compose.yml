@@ -2,7 +2,7 @@ version: '3.8'
 services:
   app:
     build: .
-    image: emanmostafa2002723/lab8-app:latest
+    image: eman237/lab8-app:latest
     ports:
       - "3000:3000"
     environment:
