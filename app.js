@@ -25,7 +25,11 @@ app.get('/', (req, res) => {
 app.get('/tasks', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM tasks ORDER BY id');
-    const grouped = Object.groupBy(result.rows, task => task.status);
+    const grouped = result.rows.reduce((acc, task) => {
+      acc[task.status] = acc[task.status] || [];
+      acc[task.status].push(task);
+      return acc;
+    }, {});
     res.json(grouped);
   } catch (err) {
     console.error(err);
